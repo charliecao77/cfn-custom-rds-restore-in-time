@@ -5,7 +5,7 @@ Parameter:
     type: String
     default: charlie-test-rds-restore-point-in-time
 
-Properties:
+Resources:
   CFNS3:
     Type: AWS::S3::Bucket
     Properties: 
