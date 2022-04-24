@@ -21,9 +21,14 @@ aws s3 cp ./cfn/s3.yml s3://charlie-test-rds-restore-point-in-time/
 testcase='s3'
 StackName="charlie-test-$testcase"
 
+echo "delete Stack"
+aws cloudformation delete-stack \
+    --stack-name $StackName
+
+echo "create Stack"
 aws cloudformation create-stack \
 --stack-name $StackName \
 --template-url https://charlie-test-rds-restore-point-in-time.s3.amazonaws.com/s3.yml
 #--parameters ParameterKey=KeyPairName,ParameterValue=TestKey ParameterKey=SubnetIDs,ParameterValue=SubnetID1\\,SubnetID2
 
-
+    
