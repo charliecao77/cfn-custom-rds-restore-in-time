@@ -16,7 +16,7 @@ StackName="charlie-test-$testcase"
 
 aws cloudformation create-stack \
 --stack-name $StackName \
---template-url s3://charlie-test-rds-restore-point-in-time/s3.yml 
+--template-url https://charlie-test-rds-restore-point-in-time.s3.amazonaws.com/s3.yml
 #--parameters ParameterKey=KeyPairName,ParameterValue=TestKey ParameterKey=SubnetIDs,ParameterValue=SubnetID1\\,SubnetID2
 
 
