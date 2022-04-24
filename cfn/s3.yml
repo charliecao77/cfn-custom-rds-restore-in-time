@@ -2,8 +2,8 @@
 
 Parameters:
   Name: 
-    type: String
-    default: charlie-test-rds-restore-point-in-time
+    Type: String
+    Default: charlie-test-rds-restore-point-in-time
 
 Resources:
   CFNS3:
