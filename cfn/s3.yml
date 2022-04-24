@@ -1,6 +1,6 @@
 
 
-Parameter:
+Parameters:
   Name: 
     type: String
     default: charlie-test-rds-restore-point-in-time
