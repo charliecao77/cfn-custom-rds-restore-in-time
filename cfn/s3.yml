@@ -1,0 +1,17 @@
+
+
+Parameter:
+  Name: 
+    type: String
+    default: charlie-test-rds-restore-point-in-time
+
+Properties:
+  CFNS3:
+    Type: AWS::S3::Bucket
+    Properties: 
+      BucketName: !Ref Name
+
+Outputs:
+  S3ARN:
+    Value:  !GetAtt CFNS3.Arn
+    Description: S3 ARN
