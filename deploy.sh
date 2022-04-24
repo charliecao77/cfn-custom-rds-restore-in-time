@@ -4,8 +4,8 @@ echo "login AWS console to create the access key/secret key "
 
 
 echo "Initial AWS CLI Environment"
-export AWS_ACCESS_KEY_ID=AKIAUE6WQKX32ML4KU53
-export AWS_SECRET_ACCESS_KEY=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
+export AWS_ACCESS_KEY_ID=AKIA3RMICJBTFP6WHZKZ
+export AWS_SECRET_ACCESS_KEY=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
 export AWS_DEFAULT_REGION=us-east-1
 
 echo "AWS default config"
