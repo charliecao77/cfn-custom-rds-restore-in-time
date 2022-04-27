@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                sh 'pwd'
-               sh './deploy.sh create'
+               sh 'aws sts get-caller-idenity'
               
             }
         }
