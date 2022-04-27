@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  ServiceToken:
+    Type: String
+
+Resources:
+  SumResource:
+    Type: "Custom::Summer"
+    Properties:
+      ServiceToken: !Ref ServiceToken
+      No1: 1
+      No2: 2
+
+Outputs:
+  Sum:
+    Value: !GetAtt SumResource.Sum
+    Description: custom resource result
+    Export:
+      Name: SumResource 

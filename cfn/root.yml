@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "Root CFN"
+Metadata:
+  'AWS::CloudFormation::Interface':
+    ParameterGroups:
+    - Label:
+        default: 'Parent Stacks'
+      Parameters:
+      - Name
+
+Parameters:
+  S3Name:
+    Type: String
+    Description: S3 for stored CFN Template
+    Default: none
+
+Resources:
+  TestRole:
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: !Sub "https://${S3Name}.s3.amazonaws.com/role.yml"
+      Parameters: 
+        RoleName: lambda-ex
+
+  TestLambda:
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: !Sub "https://${S3Name}.s3.amazonaws.com/lambda.yml"
+      Parameters:
+        Role: !GetAtt TestRole.Outputs.RoleArn
+        S3Bucket: !Ref S3Name
+        S3Key:    sum.zip
+ 
+  TestCustomResource:
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+      TemplateURL: !Sub "https://${S3Name}.s3.amazonaws.com/custom_simple.yml"
+      Parameters: 
+        ServiceToken: !GetAtt TestLambda.Outputs.LambdaArn

@@ -22,3 +22,5 @@ export AWS_ACCESS_KEY_ID=AKIAUE6WQKX32ML4KU53
 export AWS_SECRET_ACCESS_KEY=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
 export AWS_DEFAULT_REGION=us-east-1
 
+sudo yum install -y git
+https://github.com/charliecao77/cfn-custom-rds-restore-in-time.git
