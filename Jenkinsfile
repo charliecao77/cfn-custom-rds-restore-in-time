@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh deploy.sh create
+                pwd
+              
             }
         }
     }
