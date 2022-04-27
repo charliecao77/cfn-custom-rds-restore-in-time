@@ -5,6 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                sh 'pwd'
+               sh './deploy.sh create'
               
             }
         }
