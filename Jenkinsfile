@@ -5,7 +5,7 @@ pipeline {
         stage('TestBuild') {
             steps {
                sh 'pwd'
-               sh 'sudo cat ~/.aws/credentials'
+               sh 'sudo ls -l ~/.aws/'
                sh 'aws sts get-caller-identity'
               
             }
