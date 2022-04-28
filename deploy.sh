@@ -22,19 +22,6 @@ fi
 echo "upload Templates to s3://$BucketName/"
 aws s3 sync ./cfn/ s3://$BucketName/
 
-
-#cd ./src/sum_function
-#zip -r ../sum.zip ./
-#aws lambda create-function \
-#    --function-name "crhelper-sum-resource" \
-#    --handler "lambda_function.handler" \
-#    --timeout 900 \
-#    --zip-file fileb://../sum.zip \
-#    --runtime python3.9 \
-#    --role ${iamArn}
-
-
-
 #CFN Stack Set
 testcase='s3-02'
 #StackName="charlie-test-$testcase-${RANDOM:0:2}"
