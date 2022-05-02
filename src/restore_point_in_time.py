@@ -66,13 +66,17 @@ def main():
     #)
     #print(result)
 
-    result = descibe_cluster_identifier('database-1-instance-1')
-    print(result)
+    #result = descibe_cluster_identifier('database-1-instance-1')
+    #print(result)
 
-    result = create_db_instance()
-    print(result)
+    #result = create_db_instance()
+    #print(result)
 
+    result = descibe_db_identifier('database-1-instance-2')
 
+    print(result["DBInstances"][0]["DBInstanceStatus"])
+
+ 
 if __name__  == "__main__":
     main()
 
