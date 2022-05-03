@@ -33,10 +33,10 @@ def create_db_instance(DBInstanceIdentifier, DBInstanceClass, DBSubnetGroupName,
         Engine                   = Engine,
         DBSubnetGroupName        = DBSubnetGroupName,
         DBParameterGroupName     = DBParameterGroupName,
-        #MultiAZ                 = False,
-        #AutoMinorVersionUpgrade = False,
-        #LicenseModel            = 'postgresql-license',
-        #PubliclyAccessible      = False,
+        MultiAZ                 = False,
+        AutoMinorVersionUpgrade = False,
+        LicenseModel            = 'postgresql-license',
+        PubliclyAccessible      = False,
         DBClusterIdentifier      = DBClusterIdentifier
     )
 
@@ -50,12 +50,12 @@ def main():
     SourceDBClusterIdentifier = 'database-2'
     RestoreToTime             = '2022-05-03T01:30:00Z'
     
-    result = restore_db_cluster_to_point_in_time(
-        DBClusterIdentifier,
-        RestoreType,
-        SourceDBClusterIdentifier,
-        RestoreToTime
-    )
+    #result = restore_db_cluster_to_point_in_time(
+    #    DBClusterIdentifier,
+    #    RestoreType,
+    #    SourceDBClusterIdentifier,
+    #    RestoreToTime
+    #)
     
     result = descibe_cluster_identifier('database-3')
     dbcluster_status = result["DBClusters"][0]["Status"]
