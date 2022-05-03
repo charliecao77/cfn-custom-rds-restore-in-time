@@ -68,7 +68,7 @@ def main():
 
     DBInstanceIdentifier = 'database-3-instance-1'
     DBInstanceClass      = 'db.t3.medium'
-    DBSubnetGroupName    = 'default-vpc-0ab02ae0ab1d57dd8'
+    DBSubnetGroupName    = 'default'
     DBParameterGroupName = 'default.aurora-postgresql13'
     Engine               = 'aurora-postgresql'
 
