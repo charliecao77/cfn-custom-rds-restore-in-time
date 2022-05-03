@@ -1,7 +1,7 @@
 import boto3 
 import time
 
-session = boto3.Session()
+session    = boto3.Session()
 client_rds = session.client('rds')
 
 def descibe_cluster_identifier(DBClusterIdentifier):
@@ -16,13 +16,12 @@ def descibe_db_identifier(DBInstanceIdentifier):
     )
     return response
 
-def restore_db_cluster_to_point_in_time(DBClusterIdentifier, RestoreType, SourceDBClusterIdentifier,RestoreToTime,PubliclyAccessible):
+def restore_db_cluster_to_point_in_time(DBClusterIdentifier, RestoreType, SourceDBClusterIdentifier,RestoreToTime):
     response = client_rds.restore_db_cluster_to_point_in_time(
         DBClusterIdentifier       = DBClusterIdentifier,
         RestoreType               = RestoreType,
         SourceDBClusterIdentifier = SourceDBClusterIdentifier,
-        RestoreToTime             = RestoreToTime,
-        PubliclyAccessible        = PubliclyAccessible
+        RestoreToTime             = RestoreToTime
     )
 
     return response
@@ -50,14 +49,12 @@ def main():
     RestoreType               = 'full-copy'
     SourceDBClusterIdentifier = 'database-2'
     RestoreToTime             = '2022-05-03T01:30:00Z'
-    PubliclyAccessible        =  True
     
     result = restore_db_cluster_to_point_in_time(
         DBClusterIdentifier,
         RestoreType,
         SourceDBClusterIdentifier,
-        RestoreToTime,
-        PubliclyAccessible
+        RestoreToTime
     )
     
     result = descibe_cluster_identifier('database-3')
