@@ -1,7 +1,6 @@
 import boto3 
-import time
 
-session    = boto3.Session()
+session = boto3.Session()
 client_rds = session.client('rds')
 
 def descibe_cluster_identifier(DBClusterIdentifier):
@@ -26,73 +25,58 @@ def restore_db_cluster_to_point_in_time(DBClusterIdentifier, RestoreType, Source
 
     return response
 
-def create_db_instance(DBInstanceIdentifier, DBInstanceClass, DBSubnetGroupName, Engine, DBParameterGroupName, DBClusterIdentifier):
+def create_db_instance():
     response = client_rds.create_db_instance(
-        DBInstanceIdentifier     = DBInstanceIdentifier,
-        DBInstanceClass          = DBInstanceClass,
-        Engine                   = Engine,
-        DBSubnetGroupName        = DBSubnetGroupName,
-        DBParameterGroupName     = DBParameterGroupName,
-        MultiAZ                 = False,
-        AutoMinorVersionUpgrade = False,
-        LicenseModel            = 'postgresql-license',
-        PubliclyAccessible      = False,
-        DBClusterIdentifier      = DBClusterIdentifier
+        #DBName = 'test',
+        DBInstanceIdentifier='database-3-instance-1',
+        DBInstanceClass='db.t3.medium',
+        Engine='aurora-postgresql',
+        DBSubnetGroupName='default',
+        PreferredMaintenanceWindow='mon:03:45-mon:04:15',
+        DBParameterGroupName='default.aurora-postgresql13',
+        #Port=5432,
+        MultiAZ=False,
+        AutoMinorVersionUpgrade=False,
+        LicenseModel='postgresql-license',
+        PubliclyAccessible=False,
+        Tags=[
+            {
+                'Key': 'Name',
+                'Value': 'cao'
+            },
+        ],
+        DBClusterIdentifier='database-3'
     )
 
     return response
 
 
 def main():
+    #result = descibe_cluster_identifier('database-1')
+    #print(result)
 
-    DBClusterIdentifier       = 'database-3' 
-    RestoreType               = 'full-copy'
-    SourceDBClusterIdentifier = 'database-2'
-    RestoreToTime             = '2022-05-03T01:30:00Z'
+    #result = descibe_db_identifier('database-1-instance-1')
+    #print(result)
     
     #result = restore_db_cluster_to_point_in_time(
-    #    DBClusterIdentifier,
-    #    RestoreType,
-    #    SourceDBClusterIdentifier,
-    #    RestoreToTime
+    #    'database-1-instance-1',
+    #    'full-copy',
+    #    'database-1',
+    #    '2022-05-02T02:00:00Z'
     #)
-    
-    result = descibe_cluster_identifier('database-3')
-    dbcluster_status = result["DBClusters"][0]["Status"]
-    while dbcluster_status != "available":
-        result = descibe_cluster_identifier(DBClusterIdentifier)
-        dbcluster_status = result["DBClusters"][0]["Status"]
-        print(result["DBClusters"][0]["Status"])
-        time.sleep(5) 
+    #print(result)
 
+    #result = descibe_cluster_identifier('database-1-instance-1')
+    #print(result)
 
-    DBInstanceIdentifier = 'database-3-instance-1'
-    DBInstanceClass      = 'db.t3.medium'
-    DBSubnetGroupName    = 'default'
-    DBParameterGroupName = 'default.aurora-postgresql13'
-    Engine               = 'aurora-postgresql'
+    result = create_db_instance()
+    print(result)
 
-    if dbcluster_status == 'available':
-        result = create_db_instance(
-            DBInstanceIdentifier, 
-            DBInstanceClass, 
-            DBSubnetGroupName, 
-            DBParameterGroupName, 
-            DBClusterIdentifier,
-            Engine
-        )
-        print(result)
+    #result = descibe_db_identifier('database-1-instance-2')
 
-        result = descibe_db_identifier(DBInstanceIdentifier)
-        dbinstance_status = result["DBInstances"][0]["DBInstanceStatus"]
-        while dbinstance_status != 'available':
-            result = descibe_db_identifier(DBClusterIdentifier)
-            dbinstance_status = result["DBInstances"][0]["DBInstanceStatus"]
-            print(dbinstance_status)
-            time.sleep(5)
+    #print(result["DBInstances"][0]["DBInstanceStatus"])
 
-
-
+ 
 if __name__  == "__main__":
     main()
 
