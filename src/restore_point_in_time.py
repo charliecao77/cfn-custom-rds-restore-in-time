@@ -81,7 +81,6 @@ def main():
             DBParameterGroupName, 
             DBClusterIdentifier
         )
-        print(result)
 
         result = descibe_db_identifier(DBInstanceIdentifier)
         dbinstance_status = result["DBInstances"][0]["DBInstanceStatus"]
