@@ -24,7 +24,7 @@ Cloudformation Template for Aurora RDS creation/restore point in time
 - generate the automatic snapshot by change the backup time 
 - restore the Aurora RDS with the custom resource 
 
-# Test Environment 
+# Test Environment Initial
 - using the acloudguru box
 - setup the aws environment variables
     - export AWS_ACCESS_KEY_ID=

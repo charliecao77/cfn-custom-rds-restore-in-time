@@ -9,7 +9,7 @@ echo "Initial AWS CLI Environment"
 #export AWS_DEFAULT_REGION=us-east-1
 
 CreateBucket=$1
-BucketName='charlie-test-cfn-03'
+BucketName='charlie-test-cfn-04'
 
 echo "AWS default config"
 aws sts get-caller-identity
@@ -18,6 +18,17 @@ if [ $CreateBucket == 'create' ] && [ "$1" != '' ];then
   echo "creating AWS S3 bucket $BucketName "
   aws s3api create-bucket --bucket $BucketName
 fi
+
+
+VPVId=$(aws ec2 describe-vpcs --query 'Vpcs[0].VpcId')
+SecurityGroupId=$(aws ec2 describe-security-groups --query 'SecurityGroups[0].GroupId')
+Subnet01=$(aws ec2 describe-subnets --query 'Subnets[0:1:1].SubnetId' --output text)
+Subnet02=$(aws ec2 describe-subnets --query 'Subnets[1:2:1].SubnetId' --output text)
+Subnets="${Subnet01}\\,${Subnet02}"
+echo "VPC ID: $VPVId"
+echo "SecurityGroup ID: $SecurityGroupId"
+echo "Subnets: $Subnets"
+
 
 echo "upload Templates to s3://$BucketName/"
 aws s3 sync ./cfn/ s3://$BucketName/
@@ -38,7 +49,9 @@ aws cloudformation $CFNCommand \
 --capabilities CAPABILITY_NAMED_IAM \
 --stack-name $StackName \
 --template-url https://$BucketName.s3.amazonaws.com/root.yml \
---parameters ParameterKey=S3Name,ParameterValue=$BucketName 
+--parameters ParameterKey=S3Name,ParameterValue=$BucketName\
+ ParameterKey=DatabaseSubnets,ParameterValue="${Subnets}"\
+ ParameterKey=DatabaseSecurityGroups,ParameterValue=$SecurityGroupId 
 
 
 StackStatus=$(aws cloudformation describe-stacks --stack-name $StackName --query "Stacks[0].StackStatus"|tr -d '"')
